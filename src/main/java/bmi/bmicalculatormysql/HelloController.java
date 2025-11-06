@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class HelloController {
 
     private Locale locale; //
 
-    private LocalizationService localizedStrings;
+    private Map<String, String> localizedStrings;
 
     @FXML
     private void initialize() {
@@ -31,14 +32,14 @@ public class HelloController {
     }
 
     private void setLanguage(Locale locale) {
-        localizedStrings = (LocalizationService) LocalizationService.getLocalizedStrings(locale);
+        localizedStrings = LocalizationService.getLocalizedStrings(locale);
         lblWeight.setText(localizedStrings.getOrDefault("weight", "Weight"));
         lblHeight.setText(localizedStrings.getOrDefault("height", "Height"));
         btnCalculate.setText(localizedStrings.getOrDefault("calculate", "Calculate"));
-        button1.setText(localizedStrings.getOrDefault("btn1", "EN!"));
-        button2.setText(localizedStrings.getOrDefault("btn2", "FR!"));
-        button3.setText(localizedStrings.getOrDefault("btn3", "UR!"));
-        button4.setText(localizedStrings.getOrDefault("btn4", "VI!"));
+        button1.setText(localizedStrings.getOrDefault("button1", "EN!"));
+        button2.setText(localizedStrings.getOrDefault("button2", "FR!"));
+        button3.setText(localizedStrings.getOrDefault("button3", "UR!"));
+        button4.setText(localizedStrings.getOrDefault("button4", "VI!"));
     }
 
     @FXML
@@ -68,8 +69,7 @@ public class HelloController {
     @FXML
     public void onCalculateClick() {
         try {
-            // refresh localized strings for current locale
-            localizedStrings = (LocalizationService) LocalizationService.getLocalizedStrings(locale);
+            localizedStrings = LocalizationService.getLocalizedStrings(locale);
             // Get numbers from textfield
             double weight = Double.parseDouble(tfWeight.getText());
             double height = Double.parseDouble(tfHeight.getText());
@@ -92,6 +92,7 @@ public class HelloController {
 
     public double calculateBMI(double w, double h) {
         double height = h / 100.0;
-        return w / (height * height);
+        double result = w / (height * height);
+        return Math.round(result * 100.0) / 100.0;
     }
 }
