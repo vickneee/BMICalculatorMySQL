@@ -20,6 +20,8 @@
     <Button fx:id="btnCalculate" onAction="#onCalculateClick" />
     <Label fx:id="lblResult" />
 
+    <Label fx:id="lblLocalTime" />
+
     <Button fx:id="button1" text="EN!" onAction="#onENClick" />
     <Button fx:id="button2" text="FR!" onAction="#onFRClick" />
     <Button fx:id="button3" text="UR!" onAction="#onURClick" />
